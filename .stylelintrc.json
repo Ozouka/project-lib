@@ -26,5 +26,5 @@
     "block-no-empty": null,
     "no-descending-specificity": null
   },
-  "ignoreFiles": ["**/*.js", "**/*.jsx", "**/*.tsx", "**/*.ts"]
+  "ignoreFiles": ["**/*.{js,jsx,ts,tsx}"]
 }

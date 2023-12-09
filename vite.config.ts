@@ -1,9 +1,17 @@
 import { defineConfig } from 'vite';
 import checker from 'vite-plugin-checker';
 import shopify from 'vite-plugin-shopify';
+import postcss from './postcss.config';
+import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  css: {
+    postcss
+  },
+  server: {
+    hmr: true
+  },
   plugins: [
     checker({
       typescript: true
@@ -23,6 +31,13 @@ export default defineConfig({
   ],
   publicDir: 'public',
   build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: '[name].[hash].min.js',
+        chunkFileNames: '[name].[hash].min.js',
+        assetFileNames: '[name].[hash].min[extname]'
+      }
+    },
     emptyOutDir: true,
     outDir: './assets',
     assetsDir: './'

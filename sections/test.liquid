@@ -1,0 +1,13 @@
+<section
+  x-data="test"
+  x-init="console.log('foobar')"
+  class="flex flex-col"
+>
+  <button type="button" x-on:click="open = !open" class="bg-black text-white">
+    coucou
+  </button>
+
+  <div x-show="open" class="bg-gray-50 p-10">
+    <p>lorem papum</p>
+  </div>
+</section>

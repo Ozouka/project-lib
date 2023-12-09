@@ -8,7 +8,7 @@
   if path_prefix == '/'
     assign file_url_prefix = 'http://localhost:5173'
   else
-    assign file_url_prefix = 'http://localhost:5173/scripts/entrypoints/'
+    assign file_url_prefix = 'http://localhost:5173/src/entrypoints/'
   endif
   assign file_url = path | prepend: file_url_prefix
   assign file_name = path | split: '/' | last

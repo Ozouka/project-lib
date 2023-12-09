@@ -12,7 +12,8 @@
     "types": ["vite/client"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "$lib/*": ["src/lib/*"]
     }
   },
   "include": ["src/**/*", "global.d.ts"],

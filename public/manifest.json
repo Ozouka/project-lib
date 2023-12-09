@@ -1,0 +1,112 @@
+{
+  "src/entrypoints/preload.ts": {
+    "file": "preload.4ed993c7.min.js",
+    "isEntry": true,
+    "src": "src/entrypoints/preload.ts"
+  },
+  "src/entrypoints/shopmain.css": {
+    "file": "shopmain.a631ae9d.min.css",
+    "isEntry": true,
+    "src": "src/entrypoints/shopmain.css"
+  },
+  "src/entrypoints/shopmain.ts": {
+    "file": "shopmain.3d1bd30c.min.js",
+    "isEntry": true,
+    "src": "src/entrypoints/shopmain.ts"
+  },
+  "src/entrypoints/templates/404.ts": {
+    "file": "404.4ed993c7.min.js",
+    "isEntry": true,
+    "src": "src/entrypoints/templates/404.ts"
+  },
+  "src/entrypoints/templates/article.ts": {
+    "file": "article.4ed993c7.min.js",
+    "isEntry": true,
+    "src": "src/entrypoints/templates/article.ts"
+  },
+  "src/entrypoints/templates/blog.ts": {
+    "file": "blog.4ed993c7.min.js",
+    "isEntry": true,
+    "src": "src/entrypoints/templates/blog.ts"
+  },
+  "src/entrypoints/templates/cart.ts": {
+    "file": "cart.4ed993c7.min.js",
+    "isEntry": true,
+    "src": "src/entrypoints/templates/cart.ts"
+  },
+  "src/entrypoints/templates/collection.ts": {
+    "file": "collection.4ed993c7.min.js",
+    "isEntry": true,
+    "src": "src/entrypoints/templates/collection.ts"
+  },
+  "src/entrypoints/templates/customers/account.ts": {
+    "file": "account.4ed993c7.min.js",
+    "isEntry": true,
+    "src": "src/entrypoints/templates/customers/account.ts"
+  },
+  "src/entrypoints/templates/customers/activate_account.ts": {
+    "file": "activate_account.4ed993c7.min.js",
+    "isEntry": true,
+    "src": "src/entrypoints/templates/customers/activate_account.ts"
+  },
+  "src/entrypoints/templates/customers/addresses.ts": {
+    "file": "addresses.4ed993c7.min.js",
+    "isEntry": true,
+    "src": "src/entrypoints/templates/customers/addresses.ts"
+  },
+  "src/entrypoints/templates/customers/login.ts": {
+    "file": "login.4ed993c7.min.js",
+    "isEntry": true,
+    "src": "src/entrypoints/templates/customers/login.ts"
+  },
+  "src/entrypoints/templates/customers/order.ts": {
+    "file": "order.4ed993c7.min.js",
+    "isEntry": true,
+    "src": "src/entrypoints/templates/customers/order.ts"
+  },
+  "src/entrypoints/templates/customers/register.ts": {
+    "file": "register.4ed993c7.min.js",
+    "isEntry": true,
+    "src": "src/entrypoints/templates/customers/register.ts"
+  },
+  "src/entrypoints/templates/customers/reset_password.ts": {
+    "file": "reset_password.4ed993c7.min.js",
+    "isEntry": true,
+    "src": "src/entrypoints/templates/customers/reset_password.ts"
+  },
+  "src/entrypoints/templates/gift_card.ts": {
+    "file": "gift_card.4ed993c7.min.js",
+    "isEntry": true,
+    "src": "src/entrypoints/templates/gift_card.ts"
+  },
+  "src/entrypoints/templates/index.ts": {
+    "file": "index.4ed993c7.min.js",
+    "isEntry": true,
+    "src": "src/entrypoints/templates/index.ts"
+  },
+  "src/entrypoints/templates/list-collection.ts": {
+    "file": "list-collection.4ed993c7.min.js",
+    "isEntry": true,
+    "src": "src/entrypoints/templates/list-collection.ts"
+  },
+  "src/entrypoints/templates/pages/index.ts": {
+    "file": "index.c42ce534.min.js",
+    "isEntry": true,
+    "src": "src/entrypoints/templates/pages/index.ts"
+  },
+  "src/entrypoints/templates/password.ts": {
+    "file": "password.4ed993c7.min.js",
+    "isEntry": true,
+    "src": "src/entrypoints/templates/password.ts"
+  },
+  "src/entrypoints/templates/products/index.ts": {
+    "file": "index.3f7a7dc7.min.js",
+    "isEntry": true,
+    "src": "src/entrypoints/templates/products/index.ts"
+  },
+  "src/entrypoints/templates/search.ts": {
+    "file": "search.4ed993c7.min.js",
+    "isEntry": true,
+    "src": "src/entrypoints/templates/search.ts"
+  }
+}
