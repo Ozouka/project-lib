@@ -1,0 +1,80 @@
+{
+  "engine": "shopify",
+  "files": {
+    "settings": "",
+    "locales": "",
+    "sections": [],
+    "snippets": []
+  },
+  "format": {
+    "ignore": [],
+    "wrap": 80,
+    "indentSize": 2,
+    "preserveLine": 2,
+    "endNewline": true,
+    "liquid": {
+      "delimiterTrims": "preserve",
+      "indentAttribute": true,
+      "lineBreakSeparator": "before",
+      "normalizeSpacing": true,
+      "quoteConvert": "single",
+      "ignoreTagList": []
+    },
+    "markup": {
+      "quoteConvert": "double",
+      "selfCloseSpace": true,
+      "delimiterTerminus": "inline",
+      "stripAttributeLines": true,
+      "commentNewline": false,
+      "forceIndent": true,
+      "commentIndent": true,
+      "ignoreJS": true,
+      "ignoreCSS": false,
+      "ignoreJSON": false,
+      "forceAttribute": 3,
+      "attributeSort": true,
+      "attributeCasing": "preserve",
+      "preserveText": false
+    },
+    "json": {
+      "bracePadding": false,
+      "braceAllman": true,
+      "arrayFormat": "indent",
+      "objectIndent": "indent",
+      "objectSort": false
+    },
+    "style": {
+      "noLeadZero": true,
+      "quoteConvert": "single",
+      "atRuleSpace": true,
+      "correct": false,
+      "sortProperties": true,
+      "sortSelectors": true,
+      "classPadding": true
+    },
+    "script": {
+      "correct": true,
+      "arrayFormat": "indent",
+      "objectIndent": "indent",
+      "braceAllman": false,
+      "methodChain": 3,
+      "caseSpace": true,
+      "endComma": "never",
+      "quoteConvert": "single",
+      "elseNewline": true,
+      "functionNameSpace": true,
+      "functionSpace": true,
+      "ternaryLine": true,
+      "braceNewline": false,
+      "bracePadding": false,
+      "braceStyle": "none",
+      "commentNewline": true,
+      "neverFlatten": false,
+      "noCaseIndent": true,
+      "noSemicolon": false,
+      "objectSort": false,
+      "vertical": false,
+      "variableList": false
+    }
+  }
+}

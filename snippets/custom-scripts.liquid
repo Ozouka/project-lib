@@ -1,0 +1,91 @@
+{% render 'vite-tag' with 'shopmain.ts' %}
+
+{% case template.name %}
+  {% when '404' %}
+    {% render 'vite-tag' with 'templates/404.ts' %}
+
+  {% when 'article' %}
+    {% render 'vite-tag' with 'templates/article.ts' %}
+
+  {% when 'blog' %}
+    {% render 'vite-tag' with 'templates/blog.ts' %}
+
+  {% when 'cart' %}
+    {% render 'vite-tag' with 'templates/cart.ts' %}
+
+  {% when 'collection' %}
+    {% render 'vite-tag' with 'templates/collection.ts' %}
+
+  {% when 'list-collection' %}
+    {% render 'vite-tag' with 'templates/list-collection.ts' %}
+
+    {% comment %} Customers Template {% endcomment %}
+  {% when 'account' %}
+    {% render 'vite-tag' with 'templates/customers/account.ts' %}
+
+  {% when 'activate_account' %}
+    {% render 'vite-tag' with 'templates/customers/activate_account.ts' %}
+
+  {% when 'addresses' %}
+    {% render 'vite-tag' with 'templates/customers/addresses.ts' %}
+
+  {% when 'order' %}
+    {% render 'vite-tag' with 'templates/customers/order.ts' %}
+
+  {% when 'register' %}
+    {% render 'vite-tag' with 'templates/customers/register.ts' %}
+    {% render 'vite-tag' with 'ressources/auth-pages.ts' %}
+
+  {% when 'reset_password' %}
+    {% render 'vite-tag' with 'ressources/auth-pages.ts' %}
+    {% render 'vite-tag' with 'templates/customers/reset_password.ts' %}
+
+  {% when 'login' %}
+    {% render 'vite-tag' with 'ressources/auth-pages.ts' %}
+    {% render 'vite-tag' with 'templates/customers/login.ts' %}
+
+  {% when 'gift_card' %}
+    {% render 'vite-tag' with 'templates/gift_card.ts' %}
+
+  {% when 'index' %}
+    {% render 'vite-tag' with 'templates/index.ts' %}
+
+  {% when 'page' %}
+    {% render 'vite-tag' with 'templates/pages/index.ts' %}
+
+    {% case template.suffix %}
+      {% when 'v3_funnel_home' %}
+        {% render 'vite-tag' with 'ressources/main.js' %}
+        {% render 'vite-tag' with 'ressources/modals.js' %}
+        {% render 'vite-tag' with 'ressources/funnel.js' %}
+
+      {% when 'v3_funnel_results' %}
+        {% render 'vite-tag' with 'ressources/main.js' %}
+        {% render 'vite-tag' with 'ressources/modals.js' %}
+        {% render 'vite-tag' with 'ressources/funnel.js' %}
+
+      {% when 'v3_home' %}
+        {% render 'vite-tag' with 'ressources/impact.js' %}
+    {% endcase %}
+
+  {% when 'password' %}
+    {% render 'vite-tag' with 'templates/password.ts' %}
+
+  {% when 'product' %}
+    {% render 'vite-tag' with 'templates/products/index.ts' %}
+
+    {% case template.suffix %}
+      {% when 'lancey' %}
+        {% render 'vite-tag' with 'ressources/v3-product-template.ts' %}
+        {% render 'vite-tag' with 'ressources/v3-lancey.js' %}
+
+      {% when 'intellisolar' %}
+        {% render 'vite-tag' with 'ressources/v3-product-template.ts' %}
+
+      {% when 'city' %}
+        {% render 'vite-tag' with 'ressources/v3-product-template.ts' %}
+    {% endcase %}
+
+  {% when 'search' %}
+    {% render 'vite-tag' with 'templates/search.ts' %}
+{% endcase %}
