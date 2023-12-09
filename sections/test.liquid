@@ -1,6 +1,6 @@
 <section
   x-data="test"
-  x-init="console.log('foobar')"
+  x-init="console.log('inline comp alpine run  --- idle')"
   class="flex flex-col"
 >
   <button type="button" x-on:click="open = !open" class="bg-black text-white">
@@ -11,3 +11,20 @@
     <p>lorem papum</p>
   </div>
 </section>
+
+<section
+  x-data="test"
+  x-init="console.log('inline comp alpine run -- HIGHT')"
+  class="flex flex-col"
+  client:high
+>
+  <button type="button" x-on:click="open = !open" class="bg-black text-white">
+    coucou
+  </button>
+
+  <div x-show="open" class="bg-gray-50 p-10">
+    <p>lorem papum</p>
+  </div>
+</section>
+
+<section x-data x-init="console.log('custom')"></section>

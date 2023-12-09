@@ -1,4 +1,5 @@
-// Define interfaces for function parameters
+import Alpine from 'alpinejs';
+
 interface MediaParams {
   query: string;
 }
@@ -7,7 +8,13 @@ interface VisibleParams {
   element: Element;
 }
 
-export const islandsComponents = import.meta.glob('@/islands/*.js');
+// Define types for the imported modules
+type IslandModule = () => Promise<unknown>;
+type Islands = { [key: string]: IslandModule };
+
+export const islandsComponents: Islands = import.meta.glob(
+  '/src/lib/islands/*.ts'
+);
 
 function media({ query }: MediaParams): Promise<boolean> {
   const mediaQuery = window.matchMedia(query);
@@ -49,57 +56,59 @@ function idle(): Promise<void> {
   });
 }
 
-// Define types for the imported modules
-type IslandModule = () => void;
-type Islands = { [key: string]: IslandModule };
-
 export function revive(islands: Islands): void {
-  async function dfs(node: Element): Promise<void> {
-    const tagName = node.tagName.toLowerCase();
-    const potentialJsPath = `/frontend/islands/${tagName}.js`;
-    const isPotentialCustomElementName = /-/.test(tagName);
+  // Process each added node
+  async function processNode(node: Node): Promise<void> {
+    if (node.nodeType !== 1) return; // Skip if not an element node
 
-    if (isPotentialCustomElementName && islands[potentialJsPath]) {
-      if (node.hasAttribute('client:visible')) {
-        await visible({ element: node });
-      }
+    const xData = (node as Element).getAttribute('x-data');
 
-      const clientMedia = node.getAttribute('client:media');
-      if (clientMedia) {
-        await media({ query: clientMedia });
-      }
+    // If it's inline Alpine code or an empty x-data
+    const xInline =
+      !xData &&
+      ((node as Element).hasAttribute('x-data') ||
+        (node as Element).hasAttribute('x-init'));
+    if (!xData && !xInline) return;
 
-      if (node.hasAttribute('client:idle')) {
+    const modulePath = `/src/lib/islands/${xData}.ts`;
+
+    if (!xInline && !islands[modulePath]) return;
+
+    try {
+      if ((node as Element).hasAttribute('client:visible')) {
+        await visible({ element: node as Element });
+      } else if ((node as Element).hasAttribute('client:media')) {
+        await media({
+          query: (node as Element).getAttribute('client:media') ?? ''
+        });
+      } else if ((node as Element).hasAttribute('client:high')) {
+        // High priority task
+      } else {
+        // 'client:idle' by default
         await idle();
       }
 
-      islands[potentialJsPath]();
-    }
+      if (!xInline) {
+        await islands[modulePath]();
+      }
 
-    let child = node.firstElementChild;
-
-    while (child) {
-      dfs(child);
-      child = child.nextElementSibling;
+      Alpine.initTree(node as HTMLElement);
+    } catch (error) {
+      console.error(`Error processing ${xData}:`, error);
     }
   }
 
+  // Set up a MutationObserver to watch for changes in the DOM
   const observer = new window.MutationObserver(mutations => {
-    for (let i = 0; i < mutations.length; i += 1) {
-      const { addedNodes } = mutations[i];
-      for (let j = 0; j < addedNodes.length; j += 1) {
-        const node = addedNodes[j];
-        if (node.nodeType === 1 && node instanceof Element) {
-          dfs(node);
-        }
-      }
-    }
+    mutations.forEach(mutation => {
+      mutation.addedNodes.forEach(processNode);
+    });
   });
-
-  dfs(document.body);
 
   observer.observe(document.body, {
     childList: true,
     subtree: true
   });
+
+  document.body.querySelectorAll('*').forEach(processNode);
 }

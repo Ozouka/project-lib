@@ -1,3 +1,11 @@
 import Alpine from 'alpinejs';
 
-Alpine.data('productCardCarousel', () => ({}));
+console.log('Run module test.ts');
+
+Alpine.data('test', () => ({
+  open: false,
+
+  init() {
+    console.log('Init Alpine Component test.ts');
+  }
+}));
