@@ -1,0 +1,49 @@
+<div
+  class="group-block text-{{ block.settings.text }}"
+>
+  {% content_for 'blocks' %}
+</div>
+
+{% schema %}
+{
+  "name": "Group",
+  "blocks": [{ "type": "@theme" }, { "type": "@app" }],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "<h3>Hello, world!</h3>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Group"
+    },
+    {
+      "name": "Column",
+      "settings": {
+        "text": "<h3>Hello, again !</h3>"
+      },
+      "blocks": [
+        {
+          "type": "text",
+          "settings": {
+            "text": "<h3>Hello, world!</h3>"
+          }
+        },
+        {
+          "type": "text",
+          "settings": {
+            "text": "<p>How's it going?<\/p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

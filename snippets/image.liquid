@@ -1,0 +1,46 @@
+{% comment %}
+  This component manage all images variations.
+  Accepts:
+  - image: {String} - Image url
+  - width: {Number} - use it to give a max width to the srcset (optional)
+  - class: {String} - Classnames (optional)
+  Usage:
+  {% render 'image', image: product.featured_image, width: 1200 %}
+{% endcomment %}
+
+{% assign width = width | default: 2500 %}
+
+{% liquid
+  if loading == blank
+    assign decoding = 'sync'
+    assign fetchpriority = 'high'
+    assign loading = 'eager'
+
+    if section.index0 > 0
+      assign decoding = 'async'
+      assign fetchpriority = 'auto'
+      assign loading = 'lazy'
+    endif
+  endif
+%}
+
+{% capture default_alt %}
+  {% render 'get-image-alt', image: image, type: type %}
+{% endcapture %}
+{% assign default_alt = default_alt | strip_html | strip %}
+{% assign alt = image.alt | default: default_alt %}
+
+{% capture class %}
+  {{ class }} {{ fade_class }} img-full
+{% endcapture %}
+{% assign class = class | strip %}
+{{
+  image
+  | image_url: width: width
+  | image_tag:
+    class: class,
+    loading: loading,
+    fetchpriority: fetchpriority,
+    decoding: decoding,
+    alt: alt
+}}

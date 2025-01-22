@@ -1,0 +1,111 @@
+{% assign cms = section.settings %}
+
+<div class="flex flex-col lg:flex-row gap-12 md:gap-20 pb-25 lg:pb-26 pt-18 md:pt-20 lg:pt-26 px-4 md:px-8 lg:px-14">
+  <div class="lg:flex lg:flex-col w-full md:gap-2 lg:gap-4">
+    <h1 class="text-center md:text-left text-h2 md:text-h1 text-grayscale-100 font-bold">
+      {{ cms.title }}
+    </h1>
+    {% content_for 'blocks' %}
+    {% if section.blocks.size > 0 %}
+      <div class="flex flex-col">
+        {% for block in section.blocks %}
+          {% if block.type != 'faq-item' %}
+            {% continue %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+
+  {% if cms.activate_contact_form %}
+    <aside class="w-full lg:w-[47%] flex-shrink-0">
+      <h2 class="text-h2 md:text-h1">
+        {{ cms['title-contact'] }}
+      </h2>
+
+      <div class="w-full flex flex-col mt-8 p-6 rounded-2xl bg-grayscale-10 lg:p-10 lg:mt-12">
+        {% form 'contact' %}
+          {{ form.errors | default_errors }}
+
+          <div class="email">
+            <label
+              for="email"
+              class="flex flex-col font-dm-sans text-xs font-normal not-italic tracking-normal text-grayscale-80 uppercase"
+            >
+              Adresse e-mail
+              <input
+                type="email"
+                name="contact[email]"
+                id="email"
+                placeholder="jean.dupont@mail.com"
+                class="mt-2 px-1 py-2 border-b border-grayscale-60 font-dm-sans text-sm lg:text-base"
+              >
+            </label>
+          </div>
+
+          <div class="message">
+            <label
+              for="message"
+              class="mt-6 flex flex-col font-dm-sans text-xs font-normal not-italic tracking-normal text-grayscale-80 uppercase"
+            >
+              Message
+              <textarea
+                name="contact[body]"
+                id="message"
+                placeholder="Comment pouvons-nous vous aider ?"
+                class="w-full mt-2 h-42 border rounded-md border-grayscale-60 font-dm-sans p-3 resize-none text-sm lg:text-base"
+              ></textarea>
+            </label>
+          </div>
+
+          <div class="submit">
+            <button
+              type="submit"
+              class="mt-8 btn border-grayscale-60 font-dm-sans text-base md:max-w-[15rem] lg:max-w-none w-full"
+            >
+              Envoyer
+            </button>
+          </div>
+        {% endform %}
+      </div>
+    </aside>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Page FAQ - Heading",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [{ "type": "accordion" }],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "activate_contact_form",
+      "label": "Activer le formulaire de contact",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre FAQ",
+      "default": "Foire aux questions"
+    },
+    {
+      "type": "text",
+      "id": "title-contact",
+      "label": "Titre contact",
+      "default": "Nous contacter"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Page FAQ"
+    },
+    {
+      "name": "Accordion"
+    }
+  ]
+}
+{% endschema %}

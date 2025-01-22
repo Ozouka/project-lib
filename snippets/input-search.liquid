@@ -1,0 +1,47 @@
+{% comment %}
+  Accepts:
+  - placeholder: {String}
+
+  Usage:
+  {% render 'input-search',
+    placeholder: text,
+  %}
+{% endcomment %}
+
+<style>
+  [type='search']::-webkit-search-cancel-button,
+  [type='search']::-webkit-search-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+</style>
+
+<form
+  id="form-search"
+  data-predict-action="{{ routes.predictive_search_url }}"
+  action="{{ routes.search_url }}"
+  class="flex h-11 w-full justify-between rounded-xl bg-white-beige px-3 py-2 lg:w-1/2"
+>
+  <input
+    class="w-full appearance-none border-none bg-white-beige p-0 text-black text-p placeholder:text-black placeholder:text-p focus:outline-none focus:ring-0 [&.cancel-button]:hidden"
+    type="search"
+    placeholder="{{ placeholder }}"
+    name="q"
+    value=""
+    autocorrect="off"
+    autocapitalize="off"
+    aria-expanded="false"
+    aria-owns="predictive-search-results"
+    aria-controls="predictive-search-results"
+    aria-haspopup="listbox"
+    aria-autocomplete="list"
+  >
+  <input name="options[prefix]" type="hidden" value="last">
+
+  <button
+    type="submit"
+    class="flex cursor-pointer items-center"
+  >
+    {% render 'icon', variant: 'search' %}
+  </button>
+</form>

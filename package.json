@@ -1,5 +1,5 @@
 {
-  "name": "shopify-iwci-boilerplace",
+  "name": "shopify-test-karim-iwci",
   "description": "Customizable modular development environment for blazing-fast Shopify theme creation",
   "author": "IWCI - Alexis Garcia",
   "version": "1.0.0",
@@ -7,7 +7,7 @@
   "packageManager": "pnpm@7.12.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently --raw --kill-others --passthrough-arguments \"pnpm run shopify:dev --store=iwci-boirlerplate.myshopify.com\" \"pnpm run vite:dev\" --",
+    "dev": "concurrently --raw --kill-others --passthrough-arguments \"pnpm run shopify:dev --store=test-karim-iwci.myshopify.com\" \"pnpm run vite:dev\" --",
     "build": "vite build",
     "deploy": "pnpm run build && pnpm run shopify:deploy",
     "format": "prettier -w . --cache --plugin-search-dir=.",
@@ -51,8 +51,9 @@
     "@shopify/cli": "^3.52.0",
     "@shopify/theme": "^3.52.0",
     "alpinejs": "^3.13.3",
-    "embla-carousel": "^8.0.0-rc15",
-    "embla-carousel-autoplay": "^8.0.0-rc15"
+    "embla-carousel": "^8.5.2",
+    "embla-carousel-autoplay": "^8.5.2",
+    "embla-carousel-class-names": "^8.5.2"
   },
   "engines": {
     "node": ">= 16.14.2"

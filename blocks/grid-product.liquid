@@ -1,0 +1,90 @@
+{% assign blk = block.settings %}
+{% assign cms = section.settings %}
+
+{% comment %} Container classes {% endcomment %}
+{% assign container_class = 'flex' %}
+
+{% if blk.desktop_style == 'grid' %}
+  {% assign container_class = container_class
+    | append: ' lg:grid lg:grid-cols-4'
+  %}
+{% else %}
+  {% assign container_class = container_class | append: ' lg:flex' %}
+{% endif %}
+
+{% if blk.mobile_style == 'grid' %}
+  {% assign container_class = container_class | append: ' grid grid-cols-2' %}
+{% else %}
+  {% assign container_class = container_class | append: ' flex' %}
+{% endif %}
+
+{% comment %} Item classes {% endcomment %}
+{% assign item_class = 'flex-grow-0 flex-shrink-0 min-w-0' %}
+
+{% if blk.desktop_style == 'slider' %}
+  {% assign item_class = item_class | append: ' lg:basis-1/4' %}
+{% endif %}
+
+{% if blk.mobile_style == 'slider' %}
+  {% assign item_class = item_class | append: ' basis-1/2' %}
+{% endif %}
+
+<div class="{{ container_class }} border-grey-2 grid-divide grid-divide-grey-2">
+  <h1>{{ cms.title }}</h1>
+  {% content_for 'blocks' %}
+</div>
+
+{% schema %}
+{
+  "name": "Grid Product",
+  "blocks": [
+    { "type": "product-tile" },
+    { "type": "media-text" },
+    { "type": "carousel" }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "select",
+      "id": "desktop_style",
+      "label": "Desktop Style",
+      "default": "grid",
+      "options": [
+        {
+          "label": "Slider",
+          "value": "slider"
+        },
+        {
+          "label": "Grid",
+          "value": "grid"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "mobile_style",
+      "label": "Mobile Style",
+      "default": "grid",
+      "options": [
+        {
+          "label": "Slider",
+          "value": "slider"
+        },
+        {
+          "label": "Grid",
+          "value": "grid"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Grid Product"
+    }
+  ]
+}
+{% endschema %}

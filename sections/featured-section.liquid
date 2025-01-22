@@ -1,0 +1,49 @@
+{% assign cms = section.settings %}
+
+{% comment %} Slide classes {% endcomment %}
+{% assign slide_class = ' basis-1/2 lg:basis-1/4 flex-grow-0 flex-shrink-0 min-w-0 border-0' %}
+
+<div class="flex flex-col py-4 px-1 gap-4">
+  <div class="flex flex-col items-center">
+    <span class="text-base text-grayscale-100">
+      {{ cms.subtitle }}
+    </span>
+    <h2 class="text-3xl ">
+      {{ cms.title }}
+    </h2>
+  </div>
+  {% content_for 'blocks' %}
+</div>
+
+{% schema %}
+{
+  "name": "Featured Section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    { "type": "grid-product" },
+    { "type": "carousel" },
+    { "type": "media-text" }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Little text"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Featured Section"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Section"
+    }
+  ]
+}
+{% endschema %}

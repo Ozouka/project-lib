@@ -1,0 +1,47 @@
+<div class="flex-shrink-0 min-w-0 basis-full lg:basis-1/4">
+  <div class="flex w-full flex-col items-center gap-space-300 to-lg:px-layout-mobile">
+    <div class="relative w-full h-full">
+      {% if block.settings.image != blank %}
+        <div class="absolute inset-0 shrink-0 w-full h-full">
+          {% render 'image',
+            image: block.settings.image,
+            class: 'w-full h-full object-cover'
+          %}
+        </div>
+      {% endif %}
+
+      <div class="relative z-10 flex flex-col items-center justify-center min-h-fit p-4 bg-grayscale-100/50">
+        <h2 class="text-2xl font-dm-sans font-bold text-center text-white">
+          {{ block.settings.title }}
+        </h2>
+        <p class="text-base font-dm-sans text-center mt-2 text-white">
+          {{ block.settings.description }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Media Text",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description"
+    }
+  ],
+  "presets": [{ "name": "Media Text" }]
+}
+{% endschema %}
