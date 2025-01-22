@@ -3,7 +3,6 @@ import EmblaCarousel, {
   EmblaOptionsType
 } from 'embla-carousel';
 import ClassNames from 'embla-carousel-class-names';
-
 import Autoplay from 'embla-carousel-autoplay';
 
 import {
@@ -13,10 +12,10 @@ import {
 
 type CarouselOptions = {
   mobileActive?: string;
-  mobileAlign?: EmblaOptionsType['align'];
+  mobileAlign?: string;
   mobileLoop?: string;
   active?: string;
-  align?: EmblaOptionsType['align'];
+  align?: string;
   loop?: string;
   activateArrows?: string;
   activateDots?: string;
@@ -41,26 +40,41 @@ export class Carousel extends HTMLElement {
   removeDotBtnsAndClickHandlers: (() => void) | undefined;
 
   connectedCallback() {
+    
     const dataSet = this.dataset as CarouselOptions;
+
+    const getAlignment = (align: string | undefined): EmblaOptionsType['align'] => {
+      switch (align) {
+        case 'justify-start':
+          return 'start';
+        case 'justify-center':
+          return 'center';
+        case 'justify-end':
+          return 'end';
+        default:
+          return 'start';
+      }
+    };
 
     const options: EmblaOptionsType = {
       inViewThreshold: 0.9,
+      dragFree: true,
+      containScroll: 'trimSnaps',
       breakpoints: {
         '(max-width: calc(64em - 1px))': {
           active: dataSet.mobileActive !== 'false',
-          align: dataSet.mobileAlign || 'center',
+          align: getAlignment(dataSet.mobileAlign),
           loop: dataSet.mobileLoop === 'true'
         },
         '(min-width: 64em)': {
           active: dataSet.active !== 'false',
-          align: dataSet.align || 'start',
+          align: getAlignment(dataSet.align),
           loop: dataSet.loop === 'true'
         }
       }
     };
 
     const emblaNode = this.querySelector<HTMLElement>(SELECTORS.carousel);
-
     if (!emblaNode) return;
 
     const overlayPrevNode = this.querySelector<HTMLElement>(
@@ -70,19 +84,20 @@ export class Carousel extends HTMLElement {
       SELECTORS.overlayNext
     );
 
+    const plugins = [ClassNames()];
+
     if (dataSet.autoplay === 'true') {
-      this.emblaApi = EmblaCarousel(emblaNode, options, [
+      plugins.push(
         Autoplay({
           playOnInit: true,
           stopOnMouseEnter: true,
           stopOnInteraction: false,
           delay: Number(dataSet.autoplayDelay || 4000)
-        }),
-        ClassNames()
-      ]);
-    } else {
-      this.emblaApi = EmblaCarousel(emblaNode, options);
+        })
+      );
     }
+
+    this.emblaApi = EmblaCarousel(emblaNode, options, plugins);
 
     if (this.emblaApi && dataSet.activateArrows === 'true') {
       const prevBtnNode = this.querySelector<HTMLElement>(SELECTORS.btnPrev);
@@ -99,8 +114,8 @@ export class Carousel extends HTMLElement {
       );
     }
 
-    if (dataSet.activateDots) {
-      this.renderDots(this.dataset.activateNumbersInDots === 'true');
+    if (dataSet.activateDots === 'true') {
+      this.renderDots(dataSet.activateNumbersInDots === 'true');
     }
   }
 
@@ -120,13 +135,7 @@ export class Carousel extends HTMLElement {
 
   disconnectedCallback() {
     this.emblaApi?.destroy();
-
-    if (this.cleanupPrevNextBtns) {
-      this.cleanupPrevNextBtns();
-    }
-
-    if (this.removeDotBtnsAndClickHandlers) {
-      this.removeDotBtnsAndClickHandlers();
-    }
+    this.cleanupPrevNextBtns?.();
+    this.removeDotBtnsAndClickHandlers?.();
   }
 }

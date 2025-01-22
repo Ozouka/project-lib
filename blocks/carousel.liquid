@@ -1,15 +1,6 @@
 {% assign blk = block.settings %}
 
-{% liquid
-  case blk.animation
-    when 'fade'
-      assign component = 'carousel-fade'
-    else
-      assign component = 'carousel-component'
-  endcase
-%}
-
-<{{ component }}
+<carousel-component
   {% if block.shopify_attributes %}
     {{- block.shopify_attributes -}}
   {% endif %}
@@ -33,15 +24,11 @@
   <div
     class="pointer-events-none absolute bottom-0 right-0 top-0 z-[1] w-20 bg-gradient-to-l from-white opacity-50 lg:w-80 group-[:not(.fade)]:lg:hidden group-[:not(.fade-mobile)]:to-lg:hidden"
   ></div>
-
-  <div class="carousel flex size-full overflow-hidden {{ blk.viewport_class }}">
-    <div
-      class="carousel-component-container flex w-full {{ blk.container_class }} {{ blk.align }}"
-    >
+  <div class="carousel flex size-full overflow-hidden">
+    <div class="carousel-component-container flex w-full [&>.shopify-block]:flex-shrink-0 [&>.shopify-block]:min-w-0 [&>.shopify-block]:basis-full [&>.shopify-block]:lg:basis-1/4">
       {% content_for 'blocks' %}
     </div>
   </div>
-
   {% if blk.activate_arrows %}
     {% assign arrow_prev_class = '' %}
     {% assign arrow_next_class = '' %}
@@ -68,29 +55,12 @@
   {% if blk.activate_dots %}
     <div style="{{ blk.dots_style }}" class="dots {{ blk.dots_class }}"></div>
   {% endif %}
-</{{ component }}>
-
+</carousel-component>
 {% schema %}
 {
   "name": "Carousel",
   "blocks": [{ "type": "product-tile" }, { "type": "media-text" }],
   "settings": [
-    {
-      "type": "select",
-      "id": "animation",
-      "label": "Animation",
-      "options": [
-        {
-          "value": "default",
-          "label": "Default"
-        },
-        {
-          "value": "fade",
-          "label": "Fade"
-        }
-      ],
-      "default": "default"
-    },
     {
       "type": "checkbox",
       "id": "active",
