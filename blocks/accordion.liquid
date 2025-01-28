@@ -1,0 +1,48 @@
+<details
+  class="group bg-white border border-gray-200 rounded-lg accordion-{{ block.settings.accordion_id }}"
+>
+  <summary class="flex justify-between items-center cursor-pointer p-4">
+    <h3 class="text-base font-medium">
+      {{ block.settings.title }}
+    </h3>
+    <span class="relative flex-shrink-0 ml-1.5 w-5 h-5">
+      {% comment %} Put your icon here {% endcomment %}
+      {% render 'icon',
+        variant: 'plus',
+        svg_class: 'absolute inset-0 w-5 h-5 opacity-100 group-open:opacity-0 transition-opacity duration-300'
+      %}
+      {% render 'icon',
+        variant: 'minus',
+        svg_class: 'absolute inset-0 w-5 h-5 opacity-0 group-open:opacity-100 transition-opacity duration-300'
+      %}
+    </span>
+  </summary>
+  <div class="px-4 pb-4 pt-2 text-gray-600">
+    {{ block.settings.content }}
+  </div>
+</details>
+
+{% schema %}
+{
+  "name": "Accordion",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Question",
+      "default": "Votre question"
+    },
+    {
+      "type": "text",
+      "id": "accordion_id",
+      "label": "Accordion Id"
+    },
+    {
+      "type": "text",
+      "id": "content",
+      "label": "Accordion content"
+    }
+  ],
+  "presets": [{ "name": "Accordion" }]
+}
+{% endschema %}

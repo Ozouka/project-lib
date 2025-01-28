@@ -1,4 +1,7 @@
 import type { Config } from 'tailwindcss';
+import plugin from 'tailwindcss/plugin';
+
+/* import { flattenColorPalette } from 'tailwindcss/lib/util/flattenColorPalette'; */
 
 /**
  * Tailwind CSS configuration file
@@ -63,5 +66,58 @@ export default {
       // },
     }
   },
-  plugins: []
+  plugins: [
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    plugin(({ addVariant, addUtilities, matchUtilities, theme }) => {
+      addVariant('no-js', '.no-js &');
+      addUtilities({
+        '.grid-divide': {
+          '--tw-grid-divide-thickness': '1px',
+          gap: 'var(--tw-grid-divide-thickness)',
+          overflow: 'hidden', 
+          '& > *': {
+            position: 'relative',
+            '&:after': {
+              content: "''",
+              position: 'absolute',
+              border:
+                'var(--tw-grid-divide-thickness) solid var(--tw-grid-divide-color)',
+              zIndex: '1',
+              pointerEvents: 'none',
+
+              inlineSize: 'calc(100% + var(--tw-grid-divide-thickness) * 2)',
+              blockSize: 'calc(100% + var(--tw-grid-divide-thickness) * 2)',
+              insetInlineStart: 'calc(var(--tw-grid-divide-thickness) * -1)',
+              insetBlockStart: 'calc(var(--tw-grid-divide-thickness) * -1)'
+            }
+          }
+        }
+      });
+
+      matchUtilities(
+        {
+          'grid-divide': (value: string | ((opacity: number) => string)) => ({
+            '--tw-grid-divide-color':
+              typeof value === 'function' ? value(1) : `${value}`
+          })
+        }
+        /* {
+          type: ['color'],
+          values: flattenColorPalette(theme('colors'))
+        } */
+      );
+
+      matchUtilities(
+        {
+          'grid-divide': (value: string) => ({
+            '--tw-grid-divide-thickness': `${value}`
+          })
+        },
+        {
+          type: ['length'],
+          values: theme('spaces')
+        }
+      );
+    })
+  ]
 } satisfies Config;

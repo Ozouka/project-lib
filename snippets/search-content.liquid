@@ -1,0 +1,133 @@
+{% assign cms = section.settings %}
+
+{% assign predictive_total_collections = predictive_search.resources.collections
+  | size
+%}
+{% assign predictive_total_products = predictive_search.resources.products
+  | size
+%}
+
+<div
+  id="search-result"
+  class="flex w-full flex-col items-center justify-center"
+>
+  {% comment %} Collections Tags {% endcomment %}
+  {% if predictive_search.performed and predictive_total_collections > 0 %}
+    {% comment %} Predictive Results {% endcomment %}
+    <div class="flex w-full flex-col gap-6 pb-16 lg:w-1/2 lg:pb-32 ">
+      {% if cms.result_associated_collection != blank %}
+        <div class="flex w-full font-normal uppercase text-heading-2">
+          {{ cms.result_associated_collection }}
+        </div>
+      {% endif %}
+      <carousel-component>
+        <div class="carousel overflow-x-hidden">
+          <div class="flex w-full items-center justify-start gap-2">
+            {% for product in predictive_search.resources.products %}
+              <a
+                href="{{ product.url }}"
+                class="carousel_slide cursor-pointer px-3 py-2 font-normal no-underline text-p"
+              >
+                {{ product.title }}
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+      </carousel-component>
+    </div>
+    {% comment %} Default Collections  {% endcomment %}
+  {% elsif search.performed == false %}
+    <p>On a rien pour vous partez</p>
+  {% endif %}
+
+  {% comment %} Predictive Result {% endcomment %}
+  {% if predictive_search.performed and predictive_total_products > 0 %}
+    <div class="flex w-full flex-col gap-16">
+      <div class="flex w-full flex-col gap-6">
+        {% if cms.result_title != blank %}
+          <div class="flex w-full font-normal uppercase text-heading-2">
+            {{ cms.result_title }}
+          </div>
+        {% endif %}
+        <div class="grid w-full grid-cols-2 gap-x-1 gap-y-6 lg:grid-cols-4 lg:gap-x-3 ">
+          {% for product in predictive_search.resources.products limit: 4 %}
+            {% render 'tile-product',
+              format: 'main',
+              product: product,
+              wrapper_class: 'w-full'
+            %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="flex w-full self-center lg:w-1/3">
+        {% render 'button-cta',
+          text: cms.result_cta_label,
+          class: 'w-full text-heading-2 font-normal text-white bg-black uppercase py-3',
+          type: 'submit',
+          form_id: 'form-search'
+        %}
+      </div>
+    </div>
+  {% elsif predictive_search.performed
+    and predictive_search.resources.products.size == 0
+  %}
+    <div class="flex w-full flex-col">
+      <div class="flex w-full flex-col gap-6 p-0 lg:px-67 lg:py-32">
+        {% if cms.no_result_title != blank %}
+          <h3 class="font-light uppercase text-heading-1">
+            {{ cms.no_result_title }}
+          </h3>
+        {% endif %}
+        {% if cms.no_result_text != blank %}
+          <p class="font-normal text-p">{{ cms.no_result_text }}</p>
+        {% endif %}
+      </div>
+      <div class="relative flex w-full flex-col gap-6">
+        {% if cms.no_result_collection_title != blank %}
+          <div class="flex w-full font-normal uppercase text-heading-2">
+            {{ cms.no_result_collection_title }}
+          </div>
+        {% endif %}
+        {% if cms.no_result_collection != blank %}
+          {% comment %} Carousel {% endcomment %}
+          <embla-carousel>
+            <div class="carousel size-full">
+              <div
+                class="carousel_container flex w-full"
+              >
+                {% comment %} Slides {% endcomment %}
+                {% for product in cms.no_result_collection.products %}
+                  <div
+                    class="carousel_slide mr-3 min-w-0 flex-shrink-0 flex-grow-0"
+                  >
+                    {% render 'tile-product',
+                      format: 'main',
+                      product: product,
+                      wrapper_class: 'w-65 lg:w-102'
+                    %}
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+
+            {% comment %} Arrows {% endcomment %}
+            <div class="carousel_controls absolute right-3 top-0 flex items-center justify-between gap-6 lg:right-32">
+              <button class="carousel_prev">
+                {% render 'icon', type: 'arrow', class: 'rotate-180' %}
+              </button>
+              <button class="carousel_next">
+                {% render 'icon', type: 'arrow' %}
+              </button>
+            </div>
+          </embla-carousel>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+
+  {% comment %} Search Result {% endcomment %}
+  {% if search.performed and search.results_count > 0 %}
+    {% comment %} {% content_for 'blocks' %} {% endcomment %}
+  {% endif %}
+</div>

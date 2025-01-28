@@ -1,0 +1,20 @@
+{% comment %}
+  Use this snippet to get default image alt.
+
+  Accepts:
+  - type: {String} Enum : 'tile-product' (Optional)
+
+  Usage:
+  {% render 'get-image-alt', type: 'tile-product' %}
+{% endcomment %}
+
+{% case type %}
+  {% when 'collection' %}
+    {{ collection.title }}-{{ shop.name }}
+  {% else %}
+    {% if image.alt %}
+      {{ image.alt }}
+    {% else %}
+      Tryhard image
+    {% endif %}
+{% endcase %}
