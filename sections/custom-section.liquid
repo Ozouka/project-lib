@@ -1,0 +1,79 @@
+{% assign cms = section.settings %}
+
+<div class="custom-section text-{{ section.settings.text }}">
+  <p>{{ cms.text }}</p>
+  {% content_for 'blocks' %}
+</div>
+
+<div class="flex flex-col">
+  <div
+    x-data="{ open: false }"
+    @click.outside="open=false"
+    class="relative text-sm"
+  >
+    <button
+      @click="open=!open"
+      class="bg-white rounded-md shadow-sm cursor-pointer"
+    >
+      <span class="block px-4 py-2">Dropdown</span>
+    </button>
+    <ul
+      x-show="open"
+      class="absolute origin-top-left top-0 w-fit p-4 mt-10 bg-white rounded-md shadow-sm"
+      x-transition
+      x-cloak
+    >
+      <li>Menu Item 1</li>
+      <li>Menu Item 2</li>
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom section",
+  "blocks": [{ "type": "@theme" }, { "type": "@app" }],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "<h1>Image with text</h1>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom section"
+    },
+    {
+      "name": "Heading and text",
+      "blocks": [
+        {
+          "type": "group",
+          "settings": {
+            "text": "<h1>Image with text</h1>"
+          },
+          "blocks": [
+            {
+              "type": "text",
+              "settings": {
+                "text": "<h1>Image with text</h1>"
+              }
+            },
+            {
+              "type": "text",
+              "settings": {
+                "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post.</p>"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

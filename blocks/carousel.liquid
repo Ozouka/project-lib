@@ -1,0 +1,201 @@
+{% assign blk = block.settings %}
+
+<carousel-component
+  {% if block.shopify_attributes %}
+    {{- block.shopify_attributes -}}
+  {% endif %}
+  data-active="{{ blk.active }}"
+  data-align="{{ blk.align }}"
+  data-loop="{{ blk.loop }}"
+  data-mobile-active="{{ blk.mobile_active }}"
+  data-mobile-align="{{ blk.mobile_align }}"
+  data-mobile-loop="{{ blk.mobile_loop }}"
+  data-activate-arrows="{{ blk.activate_arrows }}"
+  data-activate-dots="{{ blk.activate_dots }}"
+  data-dots-class="{{ blk.single_dot_class }}"
+  data-activate-numbers-in-dots="{{ blk.activate_numbers_in_dots }}"
+  data-autoplay="{{ blk.autoplay }}"
+  data-autoplay-delay="{{ blk.autoplay_delay }}"
+  class="group relative flex size-full {{ blk.custom_class }}"
+>
+  <div
+    class="pointer-events-none absolute bottom-0 left-0 top-0 z-[1] w-20 bg-gradient-to-r from-white opacity-50 lg:w-80 group-[:not(.fade)]:lg:hidden group-[:not(.fade-mobile)]:to-lg:hidden"
+  ></div>
+  <div
+    class="pointer-events-none absolute bottom-0 right-0 top-0 z-[1] w-20 bg-gradient-to-l from-white opacity-50 lg:w-80 group-[:not(.fade)]:lg:hidden group-[:not(.fade-mobile)]:to-lg:hidden"
+  ></div>
+  <div class="carousel flex size-full overflow-hidden">
+    <div class="carousel-component-container flex w-full [&>.shopify-block]:flex-shrink-0 [&>.shopify-block]:min-w-0 [&>.shopify-block]:basis-full [&>.shopify-block]:lg:basis-1/4">
+      {% content_for 'blocks' %}
+    </div>
+  </div>
+  {% if blk.activate_arrows %}
+    {% assign arrow_prev_class = '' %}
+    {% assign arrow_next_class = '' %}
+
+    {% if blk.arrows_translate %}
+      {% assign arrow_prev_class = arrow_prev_class
+        | append: ' -translate-x-1/2'
+      %}
+      {% assign arrow_next_class = arrow_next_class
+        | append: ' translate-x-1/2'
+      %}
+    {% endif %}
+
+    <div class="pointer-events-none absolute bottom-0 top-0 flex items-center justify-between {{ blk.arrows_class }}">
+      <button class="carousel_prev pointer-events-auto h-fit cursor-pointer rounded-full border border-grey-2 bg-white p-2 transition-opacity disabled:opacity-0 to-lg:hidden {{ arrow_prev_class }}">
+        {% render 'icon', variant: 'arrow' %}
+      </button>
+      <button class="carousel_next pointer-events-auto h-fit cursor-pointer rounded-full border border-grey-2 bg-white p-2 transition-opacity disabled:opacity-0 to-lg:hidden {{ arrow_next_class }}">
+        {% render 'icon', variant: 'arrow', svg_class: 'rotate-180' %}
+      </button>
+    </div>
+  {% endif %}
+
+  {% if blk.activate_dots %}
+    <div style="{{ blk.dots_style }}" class="dots {{ blk.dots_class }}"></div>
+  {% endif %}
+</carousel-component>
+{% schema %}
+{
+  "name": "Carousel",
+  "blocks": [{ "type": "product-tile" }, { "type": "media-text" }],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "active",
+      "label": "Active (Desktop)",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "align",
+      "label": "Alignment (Desktop)",
+      "options": [
+        {
+          "value": "justify-start",
+          "label": "Start"
+        },
+        {
+          "value": "justify-center",
+          "label": "Center"
+        },
+        {
+          "value": "justify-end",
+          "label": "End"
+        }
+      ],
+      "default": "justify-start"
+    },
+    {
+      "type": "checkbox",
+      "id": "loop",
+      "label": "Loop (Desktop)",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_active",
+      "label": "Active (Mobile)",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "mobile_align",
+      "label": "Alignment (Mobile)",
+      "options": [
+        {
+          "value": "start",
+          "label": "Start"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "end",
+          "label": "End"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_loop",
+      "label": "Loop (Mobile)",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "activate_arrows",
+      "label": "Show Arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "activate_dots",
+      "label": "Show Dots",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "arrows_translate",
+      "label": "Translate Arrows",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Enable Autoplay",
+      "default": false
+    },
+    {
+      "type": "number",
+      "id": "autoplay_delay",
+      "label": "Autoplay Delay (ms)",
+      "default": 4000
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class"
+    },
+    {
+      "type": "text",
+      "id": "viewport_class",
+      "label": "Viewport Class"
+    },
+    {
+      "type": "text",
+      "id": "container_class",
+      "label": "Container Class"
+    },
+    {
+      "type": "text",
+      "id": "arrows_class",
+      "label": "Arrows Class"
+    },
+    {
+      "type": "text",
+      "id": "dots_class",
+      "label": "Dots Class"
+    },
+    {
+      "type": "text",
+      "id": "single_dot_class",
+      "label": "Single Dot Class"
+    },
+    {
+      "type": "text",
+      "id": "container_style",
+      "label": "Container Style"
+    },
+    {
+      "type": "text",
+      "id": "dots_style",
+      "label": "Dots Style"
+    }
+  ],
+  "presets": [{ "name": "Carousel" }]
+}
+{% endschema %}

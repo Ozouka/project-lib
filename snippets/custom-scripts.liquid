@@ -1,5 +1,8 @@
 {% render 'vite-tag' with 'shopmain.ts' %}
 
+{% comment %} Debunkify {% endcomment %}
+{% render 'vite-tag' with 'main.ts' %}
+
 {% case template.name %}
   {% when '404' %}
     {% render 'vite-tag' with 'templates/404.ts' %}

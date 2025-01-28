@@ -1,0 +1,30 @@
+<div class="flex flex-col gap-2">
+  <a href="{{ block.settings.product.url }}">
+    {% if block.settings.product.images[0] != blank %}
+      {% render 'image', image: block.settings.product.images[0], width: 1000 %}
+    {% endif %}
+  </a>
+  <div class="flex flex-col gap-2">
+    <h3 class="text-base font-medium">{{ block.settings.product.title }}</h3>
+    <p class="text-sm text-gray-600">
+      {{ block.settings.product.description }}
+    </p>
+    <p class="text-sm text-gray-600">
+      {{ block.settings.product.price | money }}
+    </p>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Tile",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    }
+  ],
+  "presets": [{ "name": "Product Tile" }]
+}
+{% endschema %}
